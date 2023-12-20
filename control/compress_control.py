@@ -27,7 +27,6 @@ class Control_Compress:
                 ffmpeg_command = f"ffmpeg -i {input_file} -c:v libx264 -crf {crf} -c:a aac -strict experimental {output_file}"
                 subprocess.run(ffmpeg_command, shell=True, check=True)
             else:
-                # Pour d'autres types de fichiers, utilisez gzip comme avant
                 with open(input_file, 'rb') as f_in:
                     with gzip.open(output_file, 'wb') as f_out:
                         shutil.copyfileobj(f_in, f_out)
@@ -37,20 +36,3 @@ class Control_Compress:
             print(f"Erreur lors de la compression avec ffmpeg : {e}")
         except Exception as e:
             print(f"Erreur lors de la compression : {e}")
-    # def compress_file(self, input_file):
-    #
-    #     _, extension = os.path.splitext(input_file)
-    #
-    #     output_file = f"{os.path.splitext(input_file)[0]}-konpress{extension}"
-    #
-    #     n = 1
-    #     while os.path.exists(output_file):
-    #         output_file = f"{os.path.splitext(input_file)[0]}-konpress-{n}{extension}"
-    #         n += 1
-    #
-    #     try:
-    #         with open(input_file, 'rb') as f_in:
-    #             with gzip.open(output_file, 'wb') as f_out:
-    #                 shutil.copyfileobj(f_in, f_out)
-    #     except Exception as e:
-    #         print(f"Error during compression: {e}")
